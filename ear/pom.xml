@@ -16,11 +16,13 @@
   <name>ear assembly</name>
 
   <dependencies>
+	<!--
     <dependency>
       <groupId>net.hythe</groupId>
       <artifactId>ejbs</artifactId>
       <type>ejb</type>
     </dependency>
+	-->
     <dependency>
       <groupId>net.hythe</groupId>
       <artifactId>servlet</artifactId>
