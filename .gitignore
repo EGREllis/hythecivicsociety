@@ -1,0 +1,5 @@
+servlets/servlet/target
+projects/logging/target
+primary-source/target
+ejbs/target
+ear/target
