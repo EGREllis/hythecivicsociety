@@ -1,3 +1,5 @@
+.idea
+*.iml
 servlets/servlet/target
 projects/logging/target
 primary-source/target
