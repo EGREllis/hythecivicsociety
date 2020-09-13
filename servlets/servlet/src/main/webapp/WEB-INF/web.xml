@@ -3,4 +3,153 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
 		 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
+    <servlet>
+        <servlet-name>about_us</servlet-name>
+        <jsp-file>about-us.jsp</jsp-file>
+    </servlet>
+
+    <servlet>
+        <servlet-name>agm</servlet-name>
+        <jsp-file>agm.jsp</jsp-file>
+    </servlet>
+
+    <servlet>
+        <servlet-name>archives</servlet-name>
+        <jsp-file>archives.jsp</jsp-file>
+    </servlet>
+
+    <servlet>
+        <servlet-name>awards</servlet-name>
+        <jsp-file>awards.jsp</jsp-file>
+    </servlet>
+
+    <servlet>
+        <servlet-name>contact_us</servlet-name>
+        <jsp-file>contact-us.jsp</jsp-file>
+    </servlet>
+
+    <servlet>
+        <servlet-name>events</servlet-name>
+        <jsp-file>events.jsp</jsp-file>
+    </servlet>
+
+    <servlet>
+        <servlet-name>guided_walks</servlet-name>
+        <jsp-file>guided-walks.jsp</jsp-file>
+    </servlet>
+
+    <servlet>
+        <servlet-name>join_us</servlet-name>
+        <jsp-file>join-us.jsp</jsp-file>
+    </servlet>
+
+    <servlet>
+        <servlet-name>news</servlet-name>
+        <jsp-file>news.jsp</jsp-file>
+    </servlet>
+
+    <servlet>
+        <servlet-name>newsletter</servlet-name>
+        <jsp-file>newsletter.jsp</jsp-file>
+    </servlet>
+
+    <servlet>
+        <servlet-name>planning</servlet-name>
+        <jsp-file>planning.jsp</jsp-file>
+    </servlet>
+
+    <servlet>
+        <servlet-name>projects</servlet-name>
+        <jsp-file>projects.jsp</jsp-file>
+    </servlet>
+
+    <servlet>
+        <servlet-name>publications</servlet-name>
+        <jsp-file>publications.jsp</jsp-file>
+    </servlet>
+
+    <servlet>
+        <servlet-name>talks</servlet-name>
+        <jsp-file>talks.jsp</jsp-file>
+    </servlet>
+
+    <servlet>
+        <servlet-name>useful_links</servlet-name>
+        <jsp-file>useful-links.jsp</jsp-file>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>about_us</servlet-name>
+        <url-pattern>/about_us.html</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>agm</servlet-name>
+        <url-pattern>/agm.html</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>archives</servlet-name>
+        <url-pattern>/archives.html</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>awards</servlet-name>
+        <url-pattern>/awards.html</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>contact_us</servlet-name>
+        <url-pattern>/contact_us.html</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>events</servlet-name>
+        <url-pattern>/events.html</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>guided_walks</servlet-name>
+        <url-pattern>/guided_walks.html</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>join_us</servlet-name>
+        <url-pattern>/join_us.html</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>news</servlet-name>
+        <url-pattern>/news.html</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>newsletter</servlet-name>
+        <url-pattern>/newsletter.html</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>planning</servlet-name>
+        <url-pattern>/planning.html</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>projects</servlet-name>
+        <url-pattern>/projects.html</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>publications</servlet-name>
+        <url-pattern>/publications.html</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>talks</servlet-name>
+        <url-pattern>/talks.html</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>useful_links</servlet-name>
+        <url-pattern>/useful_links.html</url-pattern>
+    </servlet-mapping>
 </web-app>
