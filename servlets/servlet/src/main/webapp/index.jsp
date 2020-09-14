@@ -1,10 +1,12 @@
 <html>
     <head>
+        <%@ include file="stylesheets.jsp" %>
         <title>Hythe Civic Centre home page</title>
         <script>
         </script>
     </head>
     <body>
+        <%@ include file="nav-bar.jsp" %>
         <h2>Slider here?</h2>
         <h1>Hythe Civic Society</h1>
         <img src="images/civic_logo_web.jpg" />
