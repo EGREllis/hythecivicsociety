@@ -2,6 +2,7 @@
 *.iml
 servlets/servlet/target
 projects/logging/target
+projects/database/target
 primary-source/target
 ejbs/target
 ear/target
