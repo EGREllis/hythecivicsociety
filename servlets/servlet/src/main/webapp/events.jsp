@@ -5,6 +5,10 @@
     </head>
     <body>
         <%@ include file="nav-bar.jsp" %>
-        <p>Events</p>
+        <main role="main" class="container">
+            <div class="starter-template">
+                <p>Events</p>
+            </div>
+        </main>
     </body>
 </html>
