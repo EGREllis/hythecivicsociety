@@ -16,6 +16,17 @@
                                     type:"Closed",
                                     status:""}];
 
+            function findName(name) {
+                var index = -1;
+                for (var i = 0; i < addresses.length; i++) {
+                    if (addresses[i].name == name) {
+                        index = i;
+                        break;
+                    }
+                }
+                document.getElementById("selected").value = index;
+            }
+
             function initMap() {
                 var mapProp= {
                     center:new google.maps.LatLng(51.073334,1.078582),
@@ -42,7 +53,8 @@
                         position: results[0].geometry.location
                       });
                       marker.addListener('click', function() {
-                        alert(addresses[index].name);
+                        selected=findName(addresses[index].name);
+                        renderTable();
                       });
                     } else {
                       alert("Geocode was not successful for the following reason: " + status);
@@ -52,12 +64,19 @@
 
             function renderTable() {
                 var html = "<table border='2' width='100%'><tr><th>Name</th><th>Address</th><th>Type</th><th>Status</th></tr>";
+                var selected = document.getElementById("selected").value;
+                if (selected >= 0) {
+                    var entry = addresses[selected];
+                    html += "<tr><td bgcolor='lightgreen'><b>"+entry.name+"</b></td><td bgcolor='lightgreen'><b>"+entry.address+"</b></td><td bgcolor='lightgreen'><b>"+entry.type+"</b></td><td bgcolor='lightgreen'><b>"+entry.status+"</b></td></tr>";
+                }
                 for (var i = 0; i < addresses.length; i++) {
+                    if (i == selected) {
+                        continue;
+                    }
                     var entry = addresses[i];
                     html += "<tr><td>"+entry.name+"</td><td>"+entry.address+"</td><td>"+entry.type+"</td><td>"+entry.status+"</td></tr>"
                 }
                 html += "</table>";
-                alert(html);
                 var ele = document.getElementById("table");
                 ele.innerHTML = html;
             }
@@ -66,6 +85,9 @@
     <body onload="renderTable()">
         <%@ include file="nav-bar.jsp" %>
         <main role="main" class="container">
+            <form>
+                <input type="hidden" name="selected" id="selected" value="-1" />
+            </form>
             <div class="starter-template">
                 <p>Planning</p>
                 <div id="googleMap" style="width:100%;height:400px;"></div>
