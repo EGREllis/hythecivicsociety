@@ -16,13 +16,6 @@
   <name>ear assembly</name>
 
   <dependencies>
-	<!--
-    <dependency>
-      <groupId>net.hythe</groupId>
-      <artifactId>ejbs</artifactId>
-      <type>ejb</type>
-    </dependency>
-	-->
     <dependency>
       <groupId>net.hythe</groupId>
       <artifactId>servlet</artifactId>
@@ -32,10 +25,12 @@
       <groupId>net.hythe</groupId>
       <artifactId>primary-source</artifactId>
     </dependency>
+    <!--
     <dependency>
-      <groupId>net.hythe</groupId>
-      <artifactId>logging</artifactId>
+        <groupId>net.hythe</groupId>
+        <artifactId>database</artifactId>
     </dependency>
+    -->
   </dependencies>
 
   <build>
