@@ -31,10 +31,17 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <derby.version>10.15.2.0</derby.version>
   </properties>
 
   <dependencyManagement>
     <dependencies>
+      <!-- https://mvnrepository.com/artifact/org.apache.derby/derby -->
+      <dependency>
+        <groupId>org.apache.derby</groupId>
+        <artifactId>derby</artifactId>
+        <version>${derby.version}</version>
+      </dependency>
       <dependency>
         <groupId>net.hythe</groupId>
         <artifactId>databse</artifactId>

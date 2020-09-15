@@ -13,4 +13,11 @@
   <artifactId>database</artifactId>
 
   <name>database</name>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.derby</groupId>
+      <artifactId>derby</artifactId>
+    </dependency>
+  </dependencies>
 </project>
