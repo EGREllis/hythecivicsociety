@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
     <head>
         <%@ include file="stylesheets.jsp" %>
@@ -89,7 +90,7 @@
                 <input type="hidden" name="selected" id="selected" value="-1" />
             </form>
             <div class="starter-template">
-                <p>Planning</p>
+                <p class="lead">Planning</p>
                 <div id="googleMap" style="width:100%;height:400px;"></div>
                 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6jkU5BYfycxtzfFOL3WA9zKAAqD6y-og&callback=initMap"></script>
             </div>

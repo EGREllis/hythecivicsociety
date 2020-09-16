@@ -4,7 +4,7 @@
     3) enable or remove the "Nav bar collapse"
 -->
 <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
-  <div class="collapse navbar-collapse" id="navbarsExampleDefault" width="100%">
+  <div class="collapse navbar-collapse" id="navbarsExampleDefault">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
         <a class="nav-link" href="about_us.html">About us<span class="sr-only">(current)</span></a>
