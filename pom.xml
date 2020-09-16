@@ -28,8 +28,9 @@
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <derby.version>10.15.2.0</derby.version>
+    <derby.version>10.14.2.0</derby.version>
     <app.version>1.0-SNAPSHOT</app.version>
+    <servlet.version>4.0.0</servlet.version>
   </properties>
 
   <dependencyManagement>
@@ -66,6 +67,12 @@
         <artifactId>ejbs</artifactId>
         <version>${app.version}</version>
         <type>ejb</type>
+      </dependency>
+      <dependency>
+        <groupId>javax.servlet</groupId>
+        <artifactId>javax.servlet-api</artifactId>
+        <version>${servlet.version}</version>
+        <scope>provided</scope>
       </dependency>
     </dependencies>
   </dependencyManagement>

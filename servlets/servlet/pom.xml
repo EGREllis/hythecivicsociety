@@ -21,5 +21,15 @@
       <artifactId>primary-source</artifactId>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>net.hythe</groupId>
+      <artifactId>database</artifactId>
+      <version>1.0-SNAPSHOT</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
+    </dependency>
   </dependencies>
 </project>

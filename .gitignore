@@ -8,3 +8,5 @@ primary-source/target
 ejbs/target
 ear/target
 *.DS_Store
+derby.log
+testdb

@@ -25,12 +25,11 @@
       <groupId>net.hythe</groupId>
       <artifactId>primary-source</artifactId>
     </dependency>
-    <!--
     <dependency>
         <groupId>net.hythe</groupId>
         <artifactId>database</artifactId>
+        <version>1.0-SNAPSHOT</version>
     </dependency>
-    -->
   </dependencies>
 
   <build>

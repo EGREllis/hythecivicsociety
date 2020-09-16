@@ -3,6 +3,13 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
 		 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
+
+    <display-name>Hythe civic society website</display-name>
+
+    <listener>
+        <listener-class>net.hythe.servlets.listener.ApplicationStartListener</listener-class>
+    </listener>
+
     <servlet>
         <servlet-name>about_us</servlet-name>
         <jsp-file>about-us.jsp</jsp-file>

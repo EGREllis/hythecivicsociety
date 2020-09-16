@@ -3,8 +3,13 @@ package net.hythe.projects.database;
 import java.sql.Driver;
 
 public class Database {
+    public String getDatabase() {
+        return "database";
+    }
+
     public static void main(String[] args) {
         // Start a derby database
+
         Driver driver = null;
         try {
             driver = (Driver)(Class.forName("org.apache.derby.jdbc.EmbeddedDriver").newInstance());
