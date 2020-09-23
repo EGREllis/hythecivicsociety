@@ -1,0 +1,2 @@
+INSERT INTO planning_application (name, valid_date, address, type, status, ward, parish)
+VALUES ('Y17/1042/SH', '2017-09-19', 'Princes Parade Promenade, Princes Parade, Hythe, Kent', 'Outline planning & Environmental Statement', 'Closed', 'Hythe', 'Hythe');

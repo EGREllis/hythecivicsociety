@@ -1,9 +1,9 @@
 CREATE TABLE planning_application (
-  name CHAR(10),
+  name CHAR(12),
   valid_date DATE,
   address VARCHAR(200),
   proposal VARCHAR(20),
-  type VARCHAR(20),
+  type VARCHAR(50),
   status VARCHAR(20),
   ward VARCHAR(20),
   parish VARCHAR(20)

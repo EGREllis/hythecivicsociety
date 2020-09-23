@@ -31,6 +31,9 @@
     <derby.version>10.14.2.0</derby.version>
     <app.version>1.0-SNAPSHOT</app.version>
     <servlet.version>4.0.0</servlet.version>
+    <!-- Java version 8 -->
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.source>1.8</maven.compiler.source>
   </properties>
 
   <dependencyManagement>

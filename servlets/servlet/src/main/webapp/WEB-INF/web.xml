@@ -10,6 +10,12 @@
         <listener-class>net.hythe.servlets.listener.ApplicationStartListener</listener-class>
     </listener>
 
+    <context-param>
+        <description>Path to database jar - required to access schema .sql files</description>
+        <param-name>database_jar_path</param-name>
+        <param-value>../applications/ear-1.0-SNAPSHOT/net.hythe-database-1.0-SNAPSHOT.jar</param-value>
+    </context-param>
+
     <servlet>
         <servlet-name>about_us</servlet-name>
         <jsp-file>about-us.jsp</jsp-file>
