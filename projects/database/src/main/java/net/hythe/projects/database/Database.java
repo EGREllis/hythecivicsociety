@@ -70,12 +70,12 @@ public class Database {
 
     //TODO: Known bug - Does not correctly process multiple SQL statements on the same line.
     private void createDatabase() {
-        System.out.println(String.format("Creating database..."));
+        System.out.println("Creating database...");
         executeSqlFromClasspathS("ddl/create_table_planning.sql");
         System.out.println("Created database.");
-        System.out.println(String.format("Adding stock data...."));
-        executeSqlFromClasspathS("data/planning_test_data.sql");
-        System.out.println(String.format("Added stock data."));
+        System.out.println("Adding stock data....");
+        executeSqlFromClasspathS("data/planning_stock_data.sql");
+        System.out.println("Added stock data.");
     }
 
     private void executeSqlFromClasspathS(String path) {

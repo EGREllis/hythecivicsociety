@@ -3,6 +3,7 @@
 servlets/servlet/target
 projects/logging/target
 projects/database/target
+projects/database/target/*
 projects/*/target
 primary-source/target
 ejbs/target

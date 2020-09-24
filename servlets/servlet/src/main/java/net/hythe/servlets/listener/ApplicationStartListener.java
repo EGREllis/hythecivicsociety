@@ -26,7 +26,8 @@ public class ApplicationStartListener implements ServletContextListener {
             message.append(entry);
         }
         System.out.println(String.format("Present working directory %1$s, contains %2$s", pwd.getAbsolutePath(), message.toString()));
-        Connection connection = Database.getConnection();
+        Database database = new Database();
+        Connection connection = database.getConnection();
         System.out.println("Connection obtained!");
         try {
             URL url = ClassLoader.getSystemResource("data/planning_stock_data.sql");
@@ -49,5 +50,6 @@ public class ApplicationStartListener implements ServletContextListener {
         } catch (IOException ioe) {
             System.err.println(ioe.getMessage());
         }
+        Database.main(new String[]{});
     }
 }
