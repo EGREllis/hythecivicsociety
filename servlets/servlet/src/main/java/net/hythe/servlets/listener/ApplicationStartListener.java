@@ -1,13 +1,12 @@
 package net.hythe.servlets.listener;
 
 import net.hythe.projects.database.Database;
+import net.hythe.projects.database.source.JarFileSqlSource;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.sql.Connection;
 import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -26,16 +25,6 @@ public class ApplicationStartListener implements ServletContextListener {
             message.append(entry);
         }
         System.out.println(String.format("Present working directory %1$s, contains %2$s", pwd.getAbsolutePath(), message.toString()));
-        Database database = new Database();
-        Connection connection = database.getConnection();
-        System.out.println("Connection obtained!");
-        try {
-            URL url = ClassLoader.getSystemResource("data/planning_stock_data.sql");
-            System.out.println(String.format("Url: %1$s", url != null ? url.toExternalForm() : "null"));
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-            e.printStackTrace(System.err);
-        }
         final String jarFilePath = sce.getServletContext().getInitParameter("database_jar_path");
         System.out.println("Servlet Context param: database_jar_path = "+jarFilePath);
         try {
@@ -50,6 +39,11 @@ public class ApplicationStartListener implements ServletContextListener {
         } catch (IOException ioe) {
             System.err.println(ioe.getMessage());
         }
-        Database.main(new String[]{});
+
+        Database database = new Database(new JarFileSqlSource(jarFilePath));
+        if (database.isDatabaseCreated()) {
+            database.dropDatabase();
+        }
+        database.createDatabase();
     }
 }

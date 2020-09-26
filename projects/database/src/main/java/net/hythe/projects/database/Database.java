@@ -3,19 +3,37 @@ package net.hythe.projects.database;
 import net.hythe.projects.database.model.PlanningApplication;
 import net.hythe.projects.database.reader.PlanningApplicationRowReader;
 import net.hythe.projects.database.reader.RowReader;
+import net.hythe.projects.database.source.ClasspathSqlSource;
+import net.hythe.projects.database.source.SqlSource;
 
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.URL;
 import java.sql.*;
 import java.util.List;
+
+import static net.hythe.projects.database.Util.logException;
 
 public class Database {
     private static final String JDBC_CONNECTION_STRING = "jdbc:derby:testdb;create=true";
     private static final String SQL_STATEMENT_TERMINATOR = ";";
     private static final String TEST_DATABASE_QUERY = "SELECT 1 FROM planning_application";
-    private static final String DROP_TABLE_SQL = "DROP TABLE planning_application";
+
+    private SqlSource sqlSource;
+
+    public Database(SqlSource sqlSource) {
+        this.sqlSource = sqlSource;
+    }
+
+    public String getDropTableDatabaseSQL() {
+        return sqlSource.getSqlFromSource("ddl/drop_table_planning.sql");
+    }
+
+    public String getCreateTableSQL() {
+        return sqlSource.getSqlFromSource("ddl/create_table_planning.sql");
+    }
+
+    public String getStockDataSQL() {
+        return sqlSource.getSqlFromSource("data/planning_stock_data.sql");
+    }
 
     public Connection getConnection() {
         Connection connection = null;
@@ -29,98 +47,32 @@ public class Database {
         return connection;
     }
 
-    private void closeSafely(AutoCloseable closeable) {
-        if (closeable != null) {
-            try {
-                closeable.close();
-            } catch (Exception e) {
-                logException(e);
-            }
-        }
-    }
-
-    private boolean isDatabaseCreated() {
-        Connection connection = null;
-        Statement statement = null;
+    public boolean isDatabaseCreated() {
         boolean result;
-        try {
-            connection = getConnection();
-            statement = connection.createStatement();
+        try (   Connection connection = getConnection();
+                Statement statement = connection.createStatement()) {
             statement.executeQuery(TEST_DATABASE_QUERY);
             result = true;
         } catch (SQLException sqle) {
             result = false;
-        } finally {
-            closeSafely(statement);
-            closeSafely(connection);
         }
         return result;
     }
 
-    private void dropDatabase() {
-        System.out.println("Dropping database...");
-        try (Connection connection = getConnection();
-            Statement statement = connection.createStatement()) {
-            statement.execute(DROP_TABLE_SQL);
-        } catch (SQLException sqle) {
-            throw new RuntimeException(sqle);
-        }
-        System.out.println("Dropped database.");
+    public void dropDatabase() {
+        runSQL(getDropTableDatabaseSQL());
     }
 
     //TODO: Known bug - Does not correctly process multiple SQL statements on the same line.
-    private void createDatabase() {
-        System.out.println("Creating database...");
-        executeSqlFromClasspathS("ddl/create_table_planning.sql");
-        System.out.println("Created database.");
-        System.out.println("Adding stock data....");
-        executeSqlFromClasspathS("data/planning_stock_data.sql");
-        System.out.println("Added stock data.");
-    }
-
-    private void executeSqlFromClasspathS(String path) {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream(path)))) {
-            StringBuilder sqlStatement = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] split = line.split(SQL_STATEMENT_TERMINATOR);
-                sqlStatement.append(split[0]);
-                if (line.contains(SQL_STATEMENT_TERMINATOR)) {
-                    try {
-                        Connection connection = getConnection();
-                        Statement statement = connection.createStatement();
-                        System.out.println(String.format("Executing: %1$s", sqlStatement));
-                        if (statement.execute(sqlStatement.toString())) {
-                            ResultSet resultSet = statement.getResultSet();
-                            int rowCount = 0;
-                            while (resultSet.next()) {
-                                rowCount++;
-                            }
-                            System.out.println(String.format("Result set %1$d rows", rowCount));
-                            resultSet.close();
-                        } else {
-                            System.out.println(String.format("Updated %1$d rows", statement.getUpdateCount()));
-                        }
-                        closeSafely(statement);
-                        closeSafely(connection);
-                        sqlStatement = new StringBuilder();
-                        if (split.length > 1) {
-                            sqlStatement.append(split[1]);
-                        }
-                    } catch (SQLException sqle) {
-                        throw new RuntimeException(sqle);
-                    }
-                }
-            }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+    public void createDatabase() {
+        runSQL(getCreateTableSQL());
+        runSQL(getStockDataSQL());
     }
 
     public static void main(String args[]) {
         URL url = ClassLoader.getSystemResource("data/planning_stock_data.sql");
         System.out.println("Resource: "+url+" "+url.toExternalForm());
-        Database database = new Database();
+        Database database = new Database(new ClasspathSqlSource());
         boolean created = database.isDatabaseCreated();
         if (!created) {
             database.createDatabase();
@@ -138,8 +90,25 @@ public class Database {
         database.dropDatabase();
     }
 
-    private static void logException(Exception e) {
-        System.err.println(e.getMessage());
-        e.printStackTrace(System.err);
+    public void runSQL(String sql) {
+        String[] sqlStatements = sql.split(SQL_STATEMENT_TERMINATOR);
+        for (String sqlStatement : sqlStatements) {
+            try (Connection connection = getConnection();
+                Statement statement = connection.createStatement()) {
+                System.out.println(String.format("Executing: %1$s", sqlStatement));
+                if (statement.execute(sqlStatement)) {
+                    ResultSet resultSet = statement.getResultSet();
+                    long rowCount = 0L;
+                    while (resultSet.next()) {
+                        rowCount++;
+                    }
+                    System.out.println(String.format("Returned %1$d rows", rowCount));
+                } else {
+                    System.out.println(String.format("Updated %1$d rows", statement.getUpdateCount()));
+                }
+            } catch (SQLException sqle) {
+                logException(sqle);
+            }
+        }
     }
 }
