@@ -4,8 +4,10 @@ import net.hythe.projects.database.model.PlanningApplication;
 import net.hythe.projects.database.reader.PlanningApplicationRowReader;
 import net.hythe.projects.database.reader.RowReader;
 import net.hythe.projects.database.source.ClasspathSqlSource;
+import net.hythe.projects.database.source.JarFileSqlSource;
 import net.hythe.projects.database.source.SqlSource;
 
+import java.io.File;
 import java.net.URL;
 import java.sql.*;
 import java.util.List;
@@ -70,9 +72,16 @@ public class Database {
     }
 
     public static void main(String args[]) {
-        URL url = ClassLoader.getSystemResource("data/planning_stock_data.sql");
-        System.out.println("Resource: "+url+" "+url.toExternalForm());
-        Database database = new Database(new ClasspathSqlSource());
+        File file = new File("./target/database-1.0-SNAPSHOT.jar");
+        System.out.println(file.getAbsolutePath());
+
+        Database database;
+        if (args.length == 0) {
+            database = new Database(new ClasspathSqlSource());
+        } else {
+            database = new Database(new JarFileSqlSource(args[0]));
+        }
+
         boolean created = database.isDatabaseCreated();
         if (!created) {
             database.createDatabase();
