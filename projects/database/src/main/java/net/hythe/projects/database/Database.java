@@ -8,7 +8,6 @@ import net.hythe.projects.database.source.JarFileSqlSource;
 import net.hythe.projects.database.source.SqlSource;
 
 import java.io.File;
-import java.net.URL;
 import java.sql.*;
 import java.util.List;
 
@@ -25,16 +24,38 @@ public class Database {
         this.sqlSource = sqlSource;
     }
 
-    public String getDropTableDatabaseSQL() {
+    private String getDropTableDatabaseSQL() {
         return sqlSource.getSqlFromSource("ddl/drop_table_planning.sql");
     }
 
-    public String getCreateTableSQL() {
+    private String getCreateTableSQL() {
         return sqlSource.getSqlFromSource("ddl/create_table_planning.sql");
     }
 
-    public String getStockDataSQL() {
+    private String getStockDataSQL() {
         return sqlSource.getSqlFromSource("data/planning_stock_data.sql");
+    }
+
+    private void runSQL(String sql) {
+        String[] sqlStatements = sql.split(SQL_STATEMENT_TERMINATOR);
+        for (String sqlStatement : sqlStatements) {
+            try (Connection connection = getConnection();
+                 Statement statement = connection.createStatement()) {
+                System.out.println(String.format("Executing: %1$s", sqlStatement));
+                if (statement.execute(sqlStatement)) {
+                    ResultSet resultSet = statement.getResultSet();
+                    long rowCount = 0L;
+                    while (resultSet.next()) {
+                        rowCount++;
+                    }
+                    System.out.println(String.format("Returned %1$d rows", rowCount));
+                } else {
+                    System.out.println(String.format("Updated %1$d rows", statement.getUpdateCount()));
+                }
+            } catch (SQLException sqle) {
+                logException(sqle);
+            }
+        }
     }
 
     public Connection getConnection() {
@@ -97,27 +118,5 @@ public class Database {
             logException(e);
         }
         database.dropDatabase();
-    }
-
-    public void runSQL(String sql) {
-        String[] sqlStatements = sql.split(SQL_STATEMENT_TERMINATOR);
-        for (String sqlStatement : sqlStatements) {
-            try (Connection connection = getConnection();
-                Statement statement = connection.createStatement()) {
-                System.out.println(String.format("Executing: %1$s", sqlStatement));
-                if (statement.execute(sqlStatement)) {
-                    ResultSet resultSet = statement.getResultSet();
-                    long rowCount = 0L;
-                    while (resultSet.next()) {
-                        rowCount++;
-                    }
-                    System.out.println(String.format("Returned %1$d rows", rowCount));
-                } else {
-                    System.out.println(String.format("Updated %1$d rows", statement.getUpdateCount()));
-                }
-            } catch (SQLException sqle) {
-                logException(sqle);
-            }
-        }
     }
 }
