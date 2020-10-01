@@ -2,6 +2,7 @@ package net.hythe.servlets.listener;
 
 import net.hythe.projects.database.Database;
 import net.hythe.projects.database.source.JarFileSqlSource;
+import net.hythe.servlets.Keys;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -16,5 +17,6 @@ public class ApplicationStartListener implements ServletContextListener {
             database.dropDatabase();
         }
         database.createDatabase();
+        sce.getServletContext().setAttribute(Keys.DATABASE_KEY, database);
     }
 }

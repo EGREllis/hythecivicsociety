@@ -2,7 +2,7 @@ package net.hythe.projects.database.model;
 
 import java.util.Date;
 
-public class PlanningApplication {
+public class PlanningApplication implements JSONCodeable {
     private final String name;
     private final Date validDate;
     private final String address;
@@ -58,5 +58,9 @@ public class PlanningApplication {
     @Override
     public String toString() {
         return String.format("Planning application %1$s\n\tdate: %2$s\n\taddress: %3$s\n\tproposal: %4$s\n\ttype: %5$s\n\tstatus: %6$s\n\tward: %7$s\n\tparish: %8$s\n", name, validDate, address, proposal, type, status, ward, parish);
+    }
+
+    public String toJSON() {
+        return String.format("{ name: \"%1$s\", address: \"%2$s\", type:\"%3$s\", status: \"%4$s\" }", name, address, type, status);
     }
 }

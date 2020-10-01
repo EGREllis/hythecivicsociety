@@ -1,22 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
         <%@ include file="stylesheets.jsp" %>
         <title>Hythe civic society - Planning</title>
         <script>
-            var addresses = [   {   name:"20/1118/FH",
-                                    address:"35 Sandgate Esplanade, Sandgate, Folkestone, CT20 3EA",
-                                    type:"Full Planning Permission",
-                                    status:"Under construction"},
-                                {   name:"20/0183/FH",
-                                    address:"17 Brockhill Road, Hythe, CT21 4AE",
-                                    type:"Full Planning Permission",
-                                    status:""},
-                                {   name:"Y17/1042/SH",
-                                    address:"Princes Parade Promenade,Princes Parade,Hythe,Kent",
-                                    type:"Closed",
-                                    status:""}];
+            var addresses = <c:out value="${planning_application_json}" escapeXml="false"/>
 
             function findName(name) {
                 var index = -1;
@@ -95,9 +85,16 @@
                 <div id="googleMap" style="width:100%;height:400px;"></div>
                 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6jkU5BYfycxtzfFOL3WA9zKAAqD6y-og&callback=initMap"></script>
             </div>
+            <p>Client side table</p>
             <div id="table">
             </div>
-            <p></p>
+            <p>Server side table:</p>
+            <table border="2" width="100%">
+                <tr><th>Name</th><th>Address</th><th>Type</th><th>Status</th></tr>
+                <c:forEach items="${planning_application}" var="plan">
+                    <td><c:out value="${plan.name}" /></td><td><c:out value="${plan.address}" /></td><td><c:out value="${plan.type}" /></td><td><c:out value="${plan.status}" /></td>
+                </c:forEach>
+            </table>
         </main>
     </body>
 </html>

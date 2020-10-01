@@ -108,16 +108,19 @@ public class Database {
         if (!created) {
             database.createDatabase();
         }
-        try {
-            DataMapper dataMapper = new DataMapper();
-            RowReader<PlanningApplication> planningApplicationRowReader = new PlanningApplicationRowReader();
-            List<PlanningApplication> results = dataMapper.loadPlanningApplications(database, planningApplicationRowReader);
-            for (PlanningApplication result : results) {
-                System.out.println(result.toString());
-            }
-        } catch (SQLException e) {
-            logException(e);
+
+        DataMapper dataMapper = new DataMapper();
+        RowReader<PlanningApplication> planningApplicationRowReader = new PlanningApplicationRowReader();
+        List<PlanningApplication> results = dataMapper.loadPlanningApplications(database, planningApplicationRowReader);
+        for (PlanningApplication result : results) {
+            System.out.println(result.toString());
         }
+
         database.dropDatabase();
+    }
+
+    @Override
+    public String toString() {
+        return JDBC_CONNECTION_STRING;
     }
 }

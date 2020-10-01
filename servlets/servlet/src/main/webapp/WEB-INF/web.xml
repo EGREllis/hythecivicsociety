@@ -68,7 +68,7 @@
 
     <servlet>
         <servlet-name>planning</servlet-name>
-        <jsp-file>planning.jsp</jsp-file>
+        <servlet-class>net.hythe.servlets.servlets.PlanningServlet</servlet-class>
     </servlet>
 
     <servlet>
