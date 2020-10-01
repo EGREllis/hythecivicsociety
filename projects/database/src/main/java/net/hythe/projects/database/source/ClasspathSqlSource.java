@@ -1,26 +1,20 @@
 package net.hythe.projects.database.source;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-
-import static net.hythe.projects.database.Util.logException;
+import java.io.InputStream;
+import java.util.Properties;
 
 public class ClasspathSqlSource implements SqlSource {
     @Override
-    public String getSqlFromSource(String resource) {
-        StringBuilder sqlStatements = new StringBuilder();
-        System.out.println(String.format("Reading SQL %1$s from classpath", resource));
-        System.out.flush();
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(ClassLoader.getSystemResourceAsStream(resource)))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                sqlStatements.append(line);
-            }
+    public Properties getSqlFromSource(String resource) {
+        Properties properties = new Properties();
+        System.out.println(String.format("Reading Properties SQL %1$s from classpath", resource));
+        try (InputStream input = ClassLoader.getSystemResourceAsStream(resource)) {
+            properties.load(input);
         } catch (IOException ioe) {
-            logException(ioe);
+            throw new RuntimeException(ioe);
         }
         System.out.println(String.format("Read SQL %1$s from classpath", resource));
-        return sqlStatements.toString();
+        return properties;
     }
 }

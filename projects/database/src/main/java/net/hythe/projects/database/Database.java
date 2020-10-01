@@ -16,6 +16,7 @@ import static net.hythe.projects.database.Util.logException;
 public class Database {
     private static final String JDBC_CONNECTION_STRING = "jdbc:derby:testdb;create=true";
     private static final String SQL_STATEMENT_TERMINATOR = ";";
+    private static final String CLASSPATH_PROPERTY_PATH = "config/planning.properties";
     private static final String TEST_DATABASE_QUERY = "SELECT 1 FROM planning_application";
 
     private SqlSource sqlSource;
@@ -25,15 +26,15 @@ public class Database {
     }
 
     private String getDropTableDatabaseSQL() {
-        return sqlSource.getSqlFromSource("ddl/drop_table_planning.sql");
+        return sqlSource.getSqlFromSource(CLASSPATH_PROPERTY_PATH).getProperty("drop");
     }
 
     private String getCreateTableSQL() {
-        return sqlSource.getSqlFromSource("ddl/create_table_planning.sql");
+        return sqlSource.getSqlFromSource(CLASSPATH_PROPERTY_PATH).getProperty("create");
     }
 
     private String getStockDataSQL() {
-        return sqlSource.getSqlFromSource("data/planning_stock_data.sql");
+        return sqlSource.getSqlFromSource(CLASSPATH_PROPERTY_PATH).getProperty("stock");
     }
 
     private void runSQL(String sql) {

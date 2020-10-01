@@ -1,5 +1,7 @@
 package net.hythe.projects.database.source;
 
+import java.util.Properties;
+
 public interface SqlSource {
-    String getSqlFromSource(String resource);
+    Properties getSqlFromSource(String resource);
 }
