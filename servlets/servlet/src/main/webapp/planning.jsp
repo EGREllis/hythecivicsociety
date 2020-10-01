@@ -8,6 +8,26 @@
         <script>
             var addresses = <c:out value="${planning_application_json}" escapeXml="false"/>
 
+            function clearClientForm() {
+                document.getElementById("client_name").value = "";
+                document.getElementById("client_address").value = "";
+                document.getElementById("client_type").value = "";
+                document.getElementById("client_status").value = "";
+            }
+
+            function addClientPin() {
+                var clientName = document.getElementById("client_name").value;
+                var clientAddress = document.getElementById("client_address").value;
+                var clientType = document.getElementById("client_type").value;
+                var clientStatus = document.getElementById("client_status").value;
+                var clientJson = { name: clientName, address: clientAddress, type: clientType, status: clientStatus}
+                addresses[addresses.length] = clientJson;
+                alert(addresses.length);
+                initMap();
+                renderTable();
+                clearClientForm();
+            }
+
             function findName(name) {
                 var index = -1;
                 for (var i = 0; i < addresses.length; i++) {
@@ -94,6 +114,14 @@
                 <c:forEach items="${planning_application}" var="plan">
                     <td><c:out value="${plan.name}" /></td><td><c:out value="${plan.address}" /></td><td><c:out value="${plan.type}" /></td><td><c:out value="${plan.status}" /></td>
                 </c:forEach>
+            </table>
+            <p>Client side form:</p>
+            <table border="2" width="100%">
+                <tr><td>Name</td><td><input type="text" id="client_name" /></td></tr>
+                <tr><td>Address</td><td><input type="text" id="client_address" /></td></tr>
+                <tr><td>Type</td><td><input type="text" id="client_type" /></td></tr>
+                <tr><td>Status</td><td><input type="text" id="client_status" /></td></tr>
+                <tr><td></td><td><input type="button" value="Add client pin" onclick="addClientPin()"/></td></tr>
             </table>
         </main>
     </body>
