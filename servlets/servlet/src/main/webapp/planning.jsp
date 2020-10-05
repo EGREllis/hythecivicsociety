@@ -112,7 +112,7 @@
             <table border="2" width="100%">
                 <tr><th>Name</th><th>Address</th><th>Type</th><th>Status</th></tr>
                 <c:forEach items="${planning_application}" var="plan">
-                    <td><c:out value="${plan.name}" /></td><td><c:out value="${plan.address}" /></td><td><c:out value="${plan.type}" /></td><td><c:out value="${plan.status}" /></td>
+                    <tr><td><c:out value="${plan.name}" /></td><td><c:out value="${plan.address}" /></td><td><c:out value="${plan.type}" /></td><td><c:out value="${plan.status}" /></td></tr>
                 </c:forEach>
             </table>
             <p>Client side form:</p>
