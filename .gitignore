@@ -11,3 +11,4 @@ ear/target
 *.DS_Store
 derby.log
 testdb
+projects/database/src/main/resources/config/secret.properties

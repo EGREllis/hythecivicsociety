@@ -103,7 +103,7 @@
             <div class="starter-template">
                 <p class="lead">Planning</p>
                 <div id="googleMap" style="width:100%;height:400px;"></div>
-                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA6jkU5BYfycxtzfFOL3WA9zKAAqD6y-og&callback=initMap"></script>
+                <script src="https://maps.googleapis.com/maps/api/js?key=${google_key}&callback=initMap"></script>
             </div>
             <p>Client side table</p>
             <div id="table">

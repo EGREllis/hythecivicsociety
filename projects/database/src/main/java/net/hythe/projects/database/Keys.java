@@ -6,4 +6,6 @@ public class Keys {
     public static final String SELECT_PLANNING_APPLICATION = "select";
     public static final String STOCK_PLANNING_APPLICATION = "stock";
     public static final String INSERT_PLANNING_APPLICATION = "insert";
+
+    public static final String GOOGLE_MAP_KEY = "google_key";
 }

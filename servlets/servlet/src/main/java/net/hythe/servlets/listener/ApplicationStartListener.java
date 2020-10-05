@@ -1,5 +1,6 @@
 package net.hythe.servlets.listener;
 
+import net.hythe.projects.database.PropertiesLoader;
 import net.hythe.projects.database.mapping.DataMapper;
 import net.hythe.projects.database.mapping.DataMapperFactory;
 import net.hythe.projects.database.mapping.DataMapperImpl;
@@ -16,6 +17,9 @@ public class ApplicationStartListener implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
         final String jarFilePath = sce.getServletContext().getInitParameter("database_jar_path");
         System.out.println("Servlet Context param: database_jar_path = "+jarFilePath);
+
+        PropertiesLoader loader = new PropertiesLoader(new JarFileSqlSource(jarFilePath));
+        sce.getServletContext().setAttribute(Keys.GOOGLE_API_KEY, loader.loadGoogleMapKey());
 
         Database database = new Database(new JarFileSqlSource(jarFilePath));
         if (database.isDatabaseCreated()) {

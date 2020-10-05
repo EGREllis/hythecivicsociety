@@ -45,6 +45,7 @@ public class PlanningServlet extends HttpServlet {
     private void packRequest(HttpServletRequest request, List<PlanningApplication> planningApplications) {
         request.setAttribute(Keys.PLANNING_APPLICATION_KEY, planningApplications);
         request.setAttribute(Keys.PLANNING_APPLICATION_JSON, Util.toJSONArray(planningApplications));
+        request.setAttribute(Keys.GOOGLE_API_KEY, getServletContext().getAttribute(Keys.GOOGLE_API_KEY));
     }
 
     private Database getDatabase() {
