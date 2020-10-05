@@ -1,6 +1,11 @@
 package net.hythe.servlets.listener;
 
+import net.hythe.projects.database.mapping.DataMapper;
+import net.hythe.projects.database.mapping.DataMapperFactory;
+import net.hythe.projects.database.mapping.DataMapperImpl;
 import net.hythe.projects.database.Database;
+import net.hythe.projects.database.mapping.PlanningApplicationDataMapperFactory;
+import net.hythe.projects.database.model.PlanningApplication;
 import net.hythe.projects.database.source.JarFileSqlSource;
 import net.hythe.servlets.Keys;
 
@@ -18,5 +23,9 @@ public class ApplicationStartListener implements ServletContextListener {
         }
         database.createDatabase();
         sce.getServletContext().setAttribute(Keys.DATABASE_KEY, database);
+
+        DataMapperFactory<PlanningApplication> planningApplicationDataMapperFactory = new PlanningApplicationDataMapperFactory();
+        DataMapper<PlanningApplication> planningApplicationDataMapper = planningApplicationDataMapperFactory.newDataMapper(database);
+        sce.getServletContext().setAttribute(Keys.PLANNING_DATA_MAPPER, planningApplicationDataMapper);
     }
 }

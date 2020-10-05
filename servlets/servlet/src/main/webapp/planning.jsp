@@ -116,13 +116,25 @@
                 </c:forEach>
             </table>
             <p>Client side form:</p>
-            <table border="2" width="100%">
-                <tr><td>Name</td><td><input type="text" id="client_name" /></td></tr>
-                <tr><td>Address</td><td><input type="text" id="client_address" /></td></tr>
-                <tr><td>Type</td><td><input type="text" id="client_type" /></td></tr>
-                <tr><td>Status</td><td><input type="text" id="client_status" /></td></tr>
-                <tr><td></td><td><input type="button" value="Add client pin" onclick="addClientPin()"/></td></tr>
-            </table>
+            <form id="clientSide">
+                <table border="2" width="100%">
+                    <tr><td>Name</td><td><input type="text" id="client_name" /></td></tr>
+                    <tr><td>Address</td><td><input type="text" id="client_address" /></td></tr>
+                    <tr><td>Type</td><td><input type="text" id="client_type" /></td></tr>
+                    <tr><td>Status</td><td><input type="text" id="client_status" /></td></tr>
+                    <tr><td></td><td><input type="button" value="Add client pin" onclick="addClientPin()"/></td></tr>
+                </table>
+            </form>
+            <p>Server side form:</p>
+            <form id="serverSide" method="POST" action="./planning.html">
+                <table border="2" width="100%">
+                    <tr><td>Name</td><td><input type="text" id="name" name="name"/></td></tr>
+                    <tr><td>Address</td><td><input type="text" id="address" name="address" /></td></tr>
+                    <tr><td>Type</td><td><input type="text" id="type" name="type" /></td></tr>
+                    <tr><td>Status</td><td><input type="text" id="status" name="status" /></td></tr>
+                    <tr><td></td><td><input type="submit" value="Add server pin" /></td></tr>
+                </table>
+            </form>
         </main>
     </body>
 </html>

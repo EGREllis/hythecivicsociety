@@ -1,4 +1,4 @@
-package net.hythe.projects.database.reader;
+package net.hythe.projects.database.mapping;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

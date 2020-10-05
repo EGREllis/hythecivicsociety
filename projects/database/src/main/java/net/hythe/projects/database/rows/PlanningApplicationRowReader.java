@@ -1,5 +1,6 @@
-package net.hythe.projects.database.reader;
+package net.hythe.projects.database.rows;
 
+import net.hythe.projects.database.mapping.RowReader;
 import net.hythe.projects.database.model.PlanningApplication;
 
 import java.sql.ResultSet;
@@ -16,7 +17,6 @@ public class PlanningApplicationRowReader implements RowReader<PlanningApplicati
                 resultSet.getString("status"),
                 resultSet.getString("ward"),
                 resultSet.getString("parish")
-
         );
     }
 }

@@ -1,8 +1,7 @@
 package net.hythe.projects.database;
 
+import net.hythe.projects.database.mapping.*;
 import net.hythe.projects.database.model.PlanningApplication;
-import net.hythe.projects.database.reader.PlanningApplicationRowReader;
-import net.hythe.projects.database.reader.RowReader;
 import net.hythe.projects.database.source.ClasspathSqlSource;
 import net.hythe.projects.database.source.JarFileSqlSource;
 import net.hythe.projects.database.source.SqlSource;
@@ -10,6 +9,7 @@ import net.hythe.projects.database.source.SqlSource;
 import java.io.File;
 import java.sql.*;
 import java.util.List;
+import java.util.Properties;
 
 import static net.hythe.projects.database.Util.logException;
 
@@ -25,16 +25,8 @@ public class Database {
         this.sqlSource = sqlSource;
     }
 
-    private String getDropTableDatabaseSQL() {
-        return sqlSource.getSqlFromSource(CLASSPATH_PROPERTY_PATH).getProperty("drop");
-    }
-
-    private String getCreateTableSQL() {
-        return sqlSource.getSqlFromSource(CLASSPATH_PROPERTY_PATH).getProperty("create");
-    }
-
-    private String getStockDataSQL() {
-        return sqlSource.getSqlFromSource(CLASSPATH_PROPERTY_PATH).getProperty("stock");
+    public Properties getDatabaseProperties() {
+        return sqlSource.getSqlFromSource(CLASSPATH_PROPERTY_PATH);
     }
 
     private void runSQL(String sql) {
@@ -84,13 +76,14 @@ public class Database {
     }
 
     public void dropDatabase() {
-        runSQL(getDropTableDatabaseSQL());
+        runSQL(getDatabaseProperties().getProperty(Keys.DROP_PLANNING_APPLICATION));
     }
 
     //TODO: Known bug - Does not correctly process multiple SQL statements on the same line.
     public void createDatabase() {
-        runSQL(getCreateTableSQL());
-        runSQL(getStockDataSQL());
+        Properties databaseProperties = getDatabaseProperties();
+        runSQL(databaseProperties.getProperty(Keys.CREATE_PLANNING_APPLICATION));
+        runSQL(databaseProperties.getProperty(Keys.STOCK_PLANNING_APPLICATION));
     }
 
     public static void main(String args[]) {
@@ -109,9 +102,10 @@ public class Database {
             database.createDatabase();
         }
 
-        DataMapper dataMapper = new DataMapper();
-        RowReader<PlanningApplication> planningApplicationRowReader = new PlanningApplicationRowReader();
-        List<PlanningApplication> results = dataMapper.loadPlanningApplications(database, planningApplicationRowReader);
+        DataMapperFactory<PlanningApplication> dataMapperFactory = new PlanningApplicationDataMapperFactory();
+        DataMapper<PlanningApplication> dataMapper = dataMapperFactory.newDataMapper(database);
+
+        List<PlanningApplication> results = dataMapper.loadPlanningApplications(database);
         for (PlanningApplication result : results) {
             System.out.println(result.toString());
         }
