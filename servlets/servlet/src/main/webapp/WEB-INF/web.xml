@@ -22,6 +22,11 @@
     </servlet>
 
     <servlet>
+        <servlet-name>ajax</servlet-name>
+        <servlet-class>net.hythe.servlets.servlets.AjaxServlet</servlet-class>
+    </servlet>
+
+    <servlet>
         <servlet-name>agm</servlet-name>
         <jsp-file>agm.jsp</jsp-file>
     </servlet>
@@ -94,6 +99,11 @@
     <servlet-mapping>
         <servlet-name>about_us</servlet-name>
         <url-pattern>/about_us.html</url-pattern>
+    </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>ajax</servlet-name>
+        <url-pattern>/ajax.html</url-pattern>
     </servlet-mapping>
 
     <servlet-mapping>

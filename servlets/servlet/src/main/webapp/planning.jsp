@@ -15,12 +15,30 @@
                 document.getElementById("client_status").value = "";
             }
 
-            function addClientPin() {
+            function getRecordFromForm() {
                 var clientName = document.getElementById("client_name").value;
                 var clientAddress = document.getElementById("client_address").value;
                 var clientType = document.getElementById("client_type").value;
                 var clientStatus = document.getElementById("client_status").value;
-                var clientJson = { name: clientName, address: clientAddress, type: clientType, status: clientStatus}
+                return { name: clientName, address: clientAddress, type: clientType, status: clientStatus}
+            }
+
+            function ajaxCallback(data, textStatus, jqXHR) {
+                alert("Ajax callback (data): "+data+"\nAjax callback(textStatus): "+textStatus);
+
+            }
+
+            function performAjaxRequest() {
+                var record = getRecordFromForm();
+                alert("Calling ajax with record: "+record);
+                $.post( "./ajax.html",
+                        record,
+                        ajaxCallback,
+                        "text");
+            }
+
+            function addClientPin() {
+                clientJson = getRecordFromForm();
                 addresses[addresses.length] = clientJson;
                 alert(addresses.length);
                 initMap();
@@ -122,7 +140,7 @@
                     <tr><td>Address</td><td><input type="text" id="client_address" /></td></tr>
                     <tr><td>Type</td><td><input type="text" id="client_type" /></td></tr>
                     <tr><td>Status</td><td><input type="text" id="client_status" /></td></tr>
-                    <tr><td></td><td><input type="button" value="Add client pin" onclick="addClientPin()"/></td></tr>
+                    <tr><td><input type="button" value="Ajax" onclick="performAjaxRequest()" /></td><td><input type="button" value="Add client pin" onclick="addClientPin()"/></td></tr>
                 </table>
             </form>
             <p>Server side form:</p>
