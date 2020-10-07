@@ -56,7 +56,7 @@ public class PlanningServlet extends HttpServlet {
         return (DataMapper<PlanningApplication>)getServletContext().getAttribute(Keys.PLANNING_DATA_MAPPER);
     }
 
-    private PlanningApplication getPlanningApplicationFrom(HttpServletRequest request) {
+    public static PlanningApplication getPlanningApplicationFrom(HttpServletRequest request) {
         String name = request.getParameter("name");
         String address = request.getParameter("address");
         String type = request.getParameter("type");

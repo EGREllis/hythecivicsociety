@@ -1,5 +1,10 @@
 package net.hythe.servlets.servlets;
 
+import net.hythe.projects.database.Database;
+import net.hythe.projects.database.mapping.DataMapper;
+import net.hythe.projects.database.model.PlanningApplication;
+import net.hythe.servlets.Keys;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -34,6 +39,13 @@ public class AjaxServlet extends HttpServlet {
         }
         message.append(" }");
         System.out.println(String.format("Ajax called with params: "+message));
+
+        PlanningApplication planningApplication = PlanningServlet.getPlanningApplicationFrom(request);
+        Database database = (Database)getServletContext().getAttribute(Keys.DATABASE_KEY);
+        DataMapper<PlanningApplication> dataMapper = (DataMapper<PlanningApplication>)getServletContext().getAttribute(Keys.PLANNING_DATA_MAPPER);
+        dataMapper.insertPlanningApplication(database, planningApplication);
+        System.out.println(String.format("Persisted Ajax Planning request: %1$s", message));
+
         response.getWriter().println(message);
     }
 }
