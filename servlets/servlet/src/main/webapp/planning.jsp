@@ -25,7 +25,9 @@
 
             function ajaxCallback(data, textStatus, jqXHR) {
                 alert("Ajax callback (data): "+data+"\nAjax callback(textStatus): "+textStatus);
-
+                var obj = 1
+                eval("pin = "+data);
+                insertPin(pin);
             }
 
             function performAjaxRequest() {
@@ -37,9 +39,17 @@
                         "text");
             }
 
+            function insertPin(pin) {
+                addresses[addresses.length] = pin;
+                alert(addresses.length);
+                initMap();
+                renderTable();
+                clearClientForm();
+            }
+
             function addClientPin() {
-                clientJson = getRecordFromForm();
-                addresses[addresses.length] = clientJson;
+                pin = getRecordFromForm();
+                addresses[addresses.length] = pin;
                 alert(addresses.length);
                 initMap();
                 renderTable();
